@@ -134,7 +134,7 @@ namespace Marketplace.Web.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.ProductPicture", b =>
+            modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Picture", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -327,7 +327,7 @@ namespace Marketplace.Web.Migrations
                         .HasForeignKey("ShopId");
                 });
 
-            modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.ProductPicture", b =>
+            modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Picture", b =>
                 {
                     b.HasOne("Marketplace.Web.DataAccess.Entities.Product", "Product")
                         .WithMany("Pictures")

@@ -1,7 +1,7 @@
 ﻿using Marketplace.Web.DataAccess.Entities;
-using Marketplace.Web.Domain.Services.Products;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Marketplace.Web.Domain.Services.Products;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 

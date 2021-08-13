@@ -1,5 +1,4 @@
 using Marketplace.Web.DataAccess;
-using Marketplace.Web.Domain.Services.Products;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +11,8 @@ using Marketplace.Web.Domain.Services.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Marketplace.Web.Domain.Services.Products;
+using Marketplace.Web.Domain.Services.Shops;
 
 namespace Marketplace.Web
 {
@@ -50,6 +51,7 @@ namespace Marketplace.Web
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IShopService, ShopService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -105,3 +105,4 @@ C:\Projects\MarketplaceApi\Marketplace.Web\obj\Debug\netcoreapp3.1\Marketplace.W
 C:\Projects\MarketplaceApi\Marketplace.Web\obj\Debug\netcoreapp3.1\Marketplace.Web.dll
 C:\Projects\MarketplaceApi\Marketplace.Web\obj\Debug\netcoreapp3.1\Marketplace.Web.pdb
 C:\Projects\MarketplaceApi\Marketplace.Web\obj\Debug\netcoreapp3.1\Marketplace.Web.genruntimeconfig.cache
+C:\Projects\MarketplaceApi\Marketplace.Web\bin\Debug\netcoreapp3.1\JsonApiSerializer.dll

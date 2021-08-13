@@ -1,9 +1,8 @@
-﻿using Marketplace.Web.DataAccess;
-using Marketplace.Web.DataAccess.Entities;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
+using Marketplace.Web.DataAccess;
 
 namespace Marketplace.Web.Domain.Services.Products
 {
@@ -16,7 +15,7 @@ namespace Marketplace.Web.Domain.Services.Products
             _context = context;
         }
 
-        public async Task<long> Create(Product product)
+        public async Task<long> Create(DataAccess.Entities.Product product)
         {
             if(product == null)
             {
@@ -29,7 +28,7 @@ namespace Marketplace.Web.Domain.Services.Products
             return entity.Entity.Id;
         }
 
-        public async Task Delete(Product product)
+        public async Task Delete(DataAccess.Entities.Product product)
         {
             if(product?.Id == null)
             {
@@ -40,14 +39,14 @@ namespace Marketplace.Web.Domain.Services.Products
             await _context.SaveChangesAsync();
         }
 
-        public IReadOnlyList<Product> GetAll(int take = 10, int skip = 0)
+        public IReadOnlyList<DataAccess.Entities.Product> GetAll(int take = 10, int skip = 0)
         {
             var result = _context.Products.Take(take).Skip(skip).ToList();
 
             return result;
         }
 
-        public async Task Update(Product product)
+        public async Task Update(DataAccess.Entities.Product product)
         {
             if (product?.Id == null)
             {

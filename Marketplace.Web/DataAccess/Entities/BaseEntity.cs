@@ -6,6 +6,6 @@ namespace Marketplace.Web.DataAccess.Entities
     {
         public long Id { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }
