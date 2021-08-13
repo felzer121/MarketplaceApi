@@ -12,5 +12,7 @@ namespace Marketplace.Web.DataAccess.Entities
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public IReadOnlyList<ProductPicture> Pictures { get; set; }
+        public Shop Shop { get; set; }
+        public long ShopId { get; set; }
     }
 }
