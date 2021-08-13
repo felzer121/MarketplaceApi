@@ -2,9 +2,12 @@
 using Marketplace.Web.Domain.Services.Products;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Marketplace.Web.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase

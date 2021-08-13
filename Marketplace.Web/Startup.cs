@@ -41,7 +41,8 @@ namespace Marketplace.Web
                         ValidateAudience = false,
                         ValidateIssuer = false,
                     };
-                }); 
+                });
+            services.AddAuthorization();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Marketplace API", Version = "v1" });
@@ -71,6 +72,7 @@ namespace Marketplace.Web
                 x.RoutePrefix = "swagger";
             });
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

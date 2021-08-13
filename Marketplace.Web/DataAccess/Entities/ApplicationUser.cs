@@ -8,6 +8,6 @@ namespace Marketplace.Web.DataAccess.Entities
         public string LastName { get; set; }
         public string Patronymic { get; set; }
         public Shop Shop { get; set; }
-        public long ShopId { get; set; }
+        public long? ShopId { get; set; }
     }
 }

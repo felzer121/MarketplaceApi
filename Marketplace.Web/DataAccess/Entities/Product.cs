@@ -10,6 +10,6 @@ namespace Marketplace.Web.DataAccess.Entities
         public int Quantity { get; set; }
         public IReadOnlyList<ProductPicture> Pictures { get; set; }
         public Shop Shop { get; set; }
-        public long ShopId { get; set; }
+        public long? ShopId { get; set; }
     }
 }
