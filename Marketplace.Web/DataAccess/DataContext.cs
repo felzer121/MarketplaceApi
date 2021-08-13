@@ -1,14 +1,11 @@
 ﻿using Marketplace.Web.DataAccess.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Marketplace.Web.DataAccess
 {
-    public class DataContext : IdentityDbContext
+    public class DataContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
     {
         public DbSet<Product> Products { get; set; }
 
