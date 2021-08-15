@@ -28,7 +28,7 @@ namespace Marketplace.Web.Domain.Services.Identity
 			_context = context;
 		}
 
-		public async Task<UserDto> Login(LoginDto request)
+        public async Task<UserDto> Login(LoginDto request)
 		{
 			var user = await _userManager.FindByEmailAsync(request.Email);
 			if (user == null)
@@ -76,6 +76,7 @@ namespace Marketplace.Web.Domain.Services.Identity
 	        };
 
 	        var result = await _userManager.CreateAsync(user, request.Password);
+			var res = await _userManager.AddToRoleAsync(user, AppRole.Buyer);
 
 	        if (result.Succeeded)
 	        {
@@ -94,4 +95,11 @@ namespace Marketplace.Web.Domain.Services.Identity
         }
 	}
 
+	public static class AppRole
+    {
+		public const string Admin = "admin";
+		public const string Buyer = "buyer";
+		public const string Seller = "seller";
+		public const string BuyerSeller = "buyer,seller";
+    }
 }

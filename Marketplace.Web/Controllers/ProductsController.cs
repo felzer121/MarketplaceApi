@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Marketplace.Web.Domain.Services.Products;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Marketplace.Web.Domain.Services.Identity;
 
 namespace Marketplace.Web.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme )]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -22,6 +23,7 @@ namespace Marketplace.Web.Controllers
         [HttpGet]
         public IActionResult GetAll(int take = 10, int skip = 0)
         {
+            var user = User.Identity;
             var result = _productService.GetAll(take, skip);
             return Ok(result);
         }

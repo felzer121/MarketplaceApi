@@ -106,3 +106,17 @@ C:\Projects\MarketplaceApi\Marketplace.Web\obj\Debug\netcoreapp3.1\Marketplace.W
 C:\Projects\MarketplaceApi\Marketplace.Web\obj\Debug\netcoreapp3.1\Marketplace.Web.pdb
 C:\Projects\MarketplaceApi\Marketplace.Web\obj\Debug\netcoreapp3.1\Marketplace.Web.genruntimeconfig.cache
 C:\Projects\MarketplaceApi\Marketplace.Web\bin\Debug\netcoreapp3.1\JsonApiSerializer.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\JsonApiSerializer.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Felzer\source\repos\Marketplace\Marketplace.Web\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll

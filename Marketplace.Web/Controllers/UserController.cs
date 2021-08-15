@@ -31,5 +31,11 @@ namespace Marketplace.Web.Controllers
             
             return Ok(result);
         }
+
+        [HttpPost("add-role")]
+        public async Task<IActionResult> AddRole(string roleName)
+        {
+            return Ok();
+        }
     }
 }

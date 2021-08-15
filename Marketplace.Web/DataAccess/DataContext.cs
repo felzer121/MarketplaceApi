@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Marketplace.Web.DataAccess
 {
-    public class DataContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
+    public class DataContext : IdentityDbContext<ApplicationUser, ApplicationRole, long>
     {
         public DbSet<Product> Products { get; set; }
 
