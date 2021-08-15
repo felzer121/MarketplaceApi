@@ -23,12 +23,12 @@ namespace Marketplace.Web.Controllers
         [HttpGet]
         public IActionResult GetAll(int take = 10, int skip = 0)
         {
-            var user = User.Identity;
             var result = _productService.GetAll(take, skip);
             return Ok(result);
         }
 
         [HttpPost]
+        [Authorize(Roles = AppRole.BuyerAdmin)]
         public async Task<IActionResult> Create(Product product)
         {
             var result = await _productService.Create(product);
@@ -36,6 +36,7 @@ namespace Marketplace.Web.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = AppRole.SellerAdmin)]
         public async Task<IActionResult> Update(Product product)
         {
             await _productService.Update(product);
@@ -43,6 +44,7 @@ namespace Marketplace.Web.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = AppRole.SellerAdmin)]
         public async Task<IActionResult> Delete(Product product)
         {
             await _productService.Delete(product);

@@ -35,19 +35,21 @@ namespace Marketplace.Web.Domain.Services.Identity
 			{
 				throw new UnauthorizedAccessException();
 			}
-
+			
 			var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
 			if (result.Succeeded)
 			{
+				var roles = await _userManager.GetRolesAsync(user);
 				return new UserDto
 				{
 					FirstName = user.FirstName,
 					LastName = user.LastName,
 					Patronymic = user.Patronymic,
-					Token = _jwtGenerator.CreateToken(user),
+					Token = _jwtGenerator.CreateToken(user, roles.ToList()),
 					UserName = user.UserName,
-					Image = null
+					Image = null,
+					Roles = roles.ToList()
 				};
 			}
 
@@ -66,7 +68,7 @@ namespace Marketplace.Web.Domain.Services.Identity
 		        throw new Exception("UserName already exist");
 	        }
 
-	        var user = new ApplicationUser
+	        var newUser = new ApplicationUser
 	        {
 		        FirstName = request.FirstName,
 		        LastName = request.LastName,
@@ -75,19 +77,23 @@ namespace Marketplace.Web.Domain.Services.Identity
 		        UserName = request.UserName
 	        };
 
-	        var result = await _userManager.CreateAsync(user, request.Password);
-			var res = await _userManager.AddToRoleAsync(user, AppRole.Buyer);
+	        var result = await _userManager.CreateAsync(newUser, request.Password);
+	        var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == newUser.Email); 
+			await _userManager.AddToRoleAsync(user, AppRole.Buyer);
 
 	        if (result.Succeeded)
 	        {
+		        var roles = await _userManager.GetRolesAsync(user);
+
 		        return new UserDto
 		        {
 			        FirstName = request.FirstName,
 			        LastName = request.LastName,
 			        Patronymic = request.Patronymic,
-			        Token = _jwtGenerator.CreateToken(user),
-			        UserName = user.UserName,
-			        Image = null
+			        Token = _jwtGenerator.CreateToken(newUser, roles.ToList()),
+			        UserName = newUser.UserName,
+			        Image = null,
+			        Roles = roles.ToList()
 		        };
 	        }
 
@@ -101,5 +107,7 @@ namespace Marketplace.Web.Domain.Services.Identity
 		public const string Buyer = "buyer";
 		public const string Seller = "seller";
 		public const string BuyerSeller = "buyer,seller";
+		public const string BuyerAdmin = "buyer,admin";
+		public const string SellerAdmin = "seller,admin";
     }
 }
