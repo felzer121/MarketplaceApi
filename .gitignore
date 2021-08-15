@@ -32,6 +32,6 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
-
+appsettings.json
 # Visual Studio 2015
 .vs/
