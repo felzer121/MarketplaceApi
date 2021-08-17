@@ -8,5 +8,7 @@
         public int Quantity { get; set; }
         public Shop Shop { get; set; }
         public long? ShopId { get; set; }
+        public long? CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

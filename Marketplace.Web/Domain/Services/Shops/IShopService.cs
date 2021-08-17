@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Marketplace.Web.Domain.Models.Shop;
+using Marketplace.Web.Domain.Models.Shops;
 
 namespace Marketplace.Web.Domain.Services.Shops
 {

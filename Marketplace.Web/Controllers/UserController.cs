@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Marketplace.Web.Domain.Models.Identity;
+using Marketplace.Web.Domain.Models.Identities;
 using Marketplace.Web.Domain.Services.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,12 +30,6 @@ namespace Marketplace.Web.Controllers
             var result = await _userService.Register(request);
             
             return Ok(result);
-        }
-
-        [HttpPost("add-role")]
-        public async Task<IActionResult> AddRole(string roleName)
-        {
-            return Ok();
         }
     }
 }

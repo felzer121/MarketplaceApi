@@ -19,6 +19,34 @@ namespace Marketplace.Web.Migrations
                 .HasAnnotation("ProductVersion", "3.1.18")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("Marketplace.Web.DataAccess.ApplicationRole", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("character varying(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("character varying(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
             modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.ApplicationUser", b =>
                 {
                     b.Property<long>("Id")
@@ -99,12 +127,70 @@ namespace Marketplace.Web.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Category", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long?>("IconId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("ParentId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IconId");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Picture", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("File")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductPictures");
+                });
+
             modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Product", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long?>("CategoryId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
@@ -129,38 +215,11 @@ namespace Marketplace.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("ShopId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Picture", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("File")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<long?>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductPictures");
                 });
 
             modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Shop", b =>
@@ -179,37 +238,14 @@ namespace Marketplace.Web.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Shop");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<long>", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                    b.Property<long?>("PictureId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex");
+                    b.HasIndex("PictureId");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("Shops");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
@@ -320,23 +356,39 @@ namespace Marketplace.Web.Migrations
                         .HasForeignKey("ShopId");
                 });
 
+            modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Category", b =>
+                {
+                    b.HasOne("Marketplace.Web.DataAccess.Entities.Picture", "Icon")
+                        .WithMany()
+                        .HasForeignKey("IconId");
+
+                    b.HasOne("Marketplace.Web.DataAccess.Entities.Category", "Parent")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Product", b =>
                 {
+                    b.HasOne("Marketplace.Web.DataAccess.Entities.Category", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("Marketplace.Web.DataAccess.Entities.Shop", "Shop")
                         .WithMany("Products")
                         .HasForeignKey("ShopId");
                 });
 
-            modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Picture", b =>
+            modelBuilder.Entity("Marketplace.Web.DataAccess.Entities.Shop", b =>
                 {
-                    b.HasOne("Marketplace.Web.DataAccess.Entities.Product", "Product")
-                        .WithMany("Pictures")
-                        .HasForeignKey("ProductId");
+                    b.HasOne("Marketplace.Web.DataAccess.Entities.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<long>", null)
+                    b.HasOne("Marketplace.Web.DataAccess.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -363,7 +415,7 @@ namespace Marketplace.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<long>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<long>", null)
+                    b.HasOne("Marketplace.Web.DataAccess.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -3,7 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Marketplace.Web.DataAccess;
 using Marketplace.Web.DataAccess.Entities;
-using Marketplace.Web.Domain.Models.Shop;
+using Marketplace.Web.Domain.Models.Pictures;
+using Marketplace.Web.Domain.Models.Shops;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Web.Domain.Services.Shops
@@ -56,8 +57,12 @@ namespace Marketplace.Web.Domain.Services.Shops
                 Name = shop.Name,
                 UserId = userId,
                 Id = shop.Id,
-                FullName = shop.Picture?.FullName,
-                PictureFile = shop.Picture?.File
+                Logo = new PictureDto
+                {
+                    File = shop.Picture.File,
+                    FileExtension = shop.Picture.FileExtension,
+                    FileName = shop.Picture.FileName
+                }
             };
         }
 
@@ -74,8 +79,12 @@ namespace Marketplace.Web.Domain.Services.Shops
             {
                 Id = shopId,
                 Name = shop.Name,
-                FullName = shop.Picture?.FullName,
-                PictureFile = shop.Picture?.File
+                Logo = new PictureDto
+                {
+                    File = shop.Picture.File,
+                    FileExtension = shop.Picture.FileExtension,
+                    FileName = shop.Picture.FileName
+                }
                 //UserId = 0
             };
         }

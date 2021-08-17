@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Marketplace.Web.Domain.Models.Identity;
+using Marketplace.Web.Domain.Models.Identities;
 
 namespace Marketplace.Web.Domain.Services.Identity
 {

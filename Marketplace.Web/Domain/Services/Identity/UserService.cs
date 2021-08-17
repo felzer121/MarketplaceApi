@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Marketplace.Web.DataAccess;
-using Marketplace.Web.Domain.Models.Identity;
+using Marketplace.Web.Domain.Models.Identities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Web.Domain.Services.Identity

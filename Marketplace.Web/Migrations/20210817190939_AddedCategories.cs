@@ -4,16 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Marketplace.Web.Migrations
 {
-    public partial class AddedIdentity : Migration
+    public partial class AddedCategories : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<long>(
-                name: "ShopId",
-                table: "Products",
-                nullable: false,
-                defaultValue: 0L);
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -30,18 +24,19 @@ namespace Marketplace.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Shop",
+                name: "ProductPictures",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    File = table.Column<string>(nullable: true),
+                    FullName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shop", x => x.Id);
+                    table.PrimaryKey("PK_ProductPictures", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,6 +58,57 @@ namespace Marketplace.Web.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    IconId = table.Column<long>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    ParentId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_ProductPictures_IconId",
+                        column: x => x.IconId,
+                        principalTable: "ProductPictures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Categories_Categories_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Shops",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    PictureId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shops", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Shops_ProductPictures_PictureId",
+                        column: x => x.PictureId,
+                        principalTable: "ProductPictures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,17 +134,49 @@ namespace Marketplace.Web.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Patronymic = table.Column<string>(nullable: true),
-                    ShopId = table.Column<long>(nullable: false)
+                    ShopId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Shop_ShopId",
+                        name: "FK_AspNetUsers_Shops_ShopId",
                         column: x => x.ShopId,
-                        principalTable: "Shop",
+                        principalTable: "Shops",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    ShopId = table.Column<long>(nullable: true),
+                    CategoryId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -187,11 +265,6 @@ namespace Marketplace.Web.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ShopId",
-                table: "Products",
-                column: "ShopId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -233,21 +306,34 @@ namespace Marketplace.Web.Migrations
                 table: "AspNetUsers",
                 column: "ShopId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Products_Shop_ShopId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_IconId",
+                table: "Categories",
+                column: "IconId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_ParentId",
+                table: "Categories",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
                 table: "Products",
-                column: "ShopId",
-                principalTable: "Shop",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ShopId",
+                table: "Products",
+                column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shops_PictureId",
+                table: "Shops",
+                column: "PictureId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Products_Shop_ShopId",
-                table: "Products");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -264,21 +350,22 @@ namespace Marketplace.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Shop");
+                name: "Categories");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Products_ShopId",
-                table: "Products");
+            migrationBuilder.DropTable(
+                name: "Shops");
 
-            migrationBuilder.DropColumn(
-                name: "ShopId",
-                table: "Products");
+            migrationBuilder.DropTable(
+                name: "ProductPictures");
         }
     }
 }

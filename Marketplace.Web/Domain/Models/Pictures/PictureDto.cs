@@ -1,6 +1,6 @@
-﻿namespace Marketplace.Web.DataAccess.Entities
+namespace Marketplace.Web.Domain.Models.Pictures
 {
-    public class Picture : BaseEntity
+    public class PictureDto
     {
         public string File { get; set; }
         public string FileName { get; set; }

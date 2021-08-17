@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Marketplace.Web.Domain.Models.Shop;
+using Marketplace.Web.Domain.Models.Shops;
 using Marketplace.Web.Domain.Services.Shops;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

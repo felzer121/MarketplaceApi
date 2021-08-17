@@ -1,4 +1,4 @@
-﻿namespace Marketplace.Web.Domain.Models.Identity
+﻿namespace Marketplace.Web.Domain.Models.Identities
 {
     public class LoginDto
     {

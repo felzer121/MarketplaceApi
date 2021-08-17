@@ -12,6 +12,7 @@ using Marketplace.Web.Domain.Services.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Marketplace.Web.Domain.Services.Categories;
 using Marketplace.Web.Domain.Services.Products;
 using Marketplace.Web.Domain.Services.Shops;
 
@@ -28,7 +29,8 @@ namespace Marketplace.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<DataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("Db")));
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<DataContext>();
@@ -83,6 +85,7 @@ namespace Marketplace.Web
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IShopService, ShopService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
