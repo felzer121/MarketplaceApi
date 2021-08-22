@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Marketplace.Web.DataAccess;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +16,8 @@ using System.Text;
 using Marketplace.Web.Domain.Services.Categories;
 using Marketplace.Web.Domain.Services.Products;
 using Marketplace.Web.Domain.Services.Shops;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace Marketplace.Web
 {
@@ -100,6 +103,19 @@ namespace Marketplace.Web
                 app.UseHsts();
             }
 
+            app.UseExceptionHandler(c => c.Run(async context =>
+            {
+                var exception = context.Features
+                    .Get<IExceptionHandlerPathFeature>()
+                    .Error;
+
+                if (exception is UnauthorizedAccessException)
+                {
+                    context.Response.StatusCode = 401;
+                    await context.Response.WriteAsync(exception.Message);   
+                }
+            }));
+            
             app.UseRouting();
             app.UseSwagger();
             app.UseSwaggerUI(x =>
