@@ -1,29 +1,27 @@
+using System.Linq;
 using System.Threading.Tasks;
+using Marketplace.Web.DataAccess;
 using Marketplace.Web.Domain.Models.Categories;
 using Marketplace.Web.Domain.Services.Categories;
+using Marketplace.Web.Domain.Services.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Marketplace.Web.Controllers
+namespace Marketplace.Web.Controllers.Admin
 {
-    [Route("api/category")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    [Authorize(Roles = AppRole.Admin)]
+    public class AdminCategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
+        private readonly DataContext _context;
 
-        public CategoryController(ICategoryService categoryService)
+        public AdminCategoryController(ICategoryService categoryService, DataContext context)
         {
             _categoryService = categoryService;
+            _context = context;
         }
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var result = _categoryService.GetAll();
-            
-            return Ok(new {categories = result});
-        }
-        
         [HttpPost]
         public async Task<IActionResult> Create(CategoryDto categoryDto)
         {

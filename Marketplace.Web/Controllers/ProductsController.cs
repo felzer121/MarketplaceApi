@@ -7,7 +7,6 @@ using Marketplace.Web.Domain.Services.Identity;
 
 namespace Marketplace.Web.Controllers
 {
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme )]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase

@@ -8,10 +8,13 @@ namespace Marketplace.Web.DataAccess
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-
         public DbSet<Picture> ProductPictures { get; set; }
-        
         public DbSet<Shop> Shops { get; set; }
+        
+        /// <summary>
+        /// Акции
+        /// </summary>
+        public DbSet<Sales> Sales { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

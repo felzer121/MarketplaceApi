@@ -79,10 +79,11 @@ namespace Marketplace.Web.Domain.Services.Identity
 
 	        var result = await _userManager.CreateAsync(newUser, request.Password);
 	        var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == newUser.Email); 
-			await _userManager.AddToRoleAsync(user, AppRole.Buyer);
 
 	        if (result.Succeeded)
 	        {
+		        await _userManager.AddToRoleAsync(user, AppRole.Buyer);
+
 		        var roles = await _userManager.GetRolesAsync(user);
 
 		        return new UserDto

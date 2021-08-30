@@ -16,6 +16,7 @@ using System.Text;
 using Marketplace.Web.Domain.Services.Categories;
 using Marketplace.Web.Domain.Services.Products;
 using Marketplace.Web.Domain.Services.Shops;
+using Marketplace.Web.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 
@@ -89,6 +90,7 @@ namespace Marketplace.Web
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IShopService, ShopService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddTransient<SeedData>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

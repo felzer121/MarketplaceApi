@@ -7,6 +7,7 @@ namespace Marketplace.Web.DataAccess.Entities
         public Picture Icon { get; set; }
         public long? IconId { get; set; }
         public string Name { get; set; }
+        public bool IsPublishedOnMainPage { get; set; }
         public long? ParentId { get; set; }
         public Category Parent { get; set; }
         public List<Category> SubCategories { get; set; }

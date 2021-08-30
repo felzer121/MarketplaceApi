@@ -38,34 +38,12 @@ namespace Marketplace.Web.Domain.Services.Categories
             await _context.SaveChangesAsync();
         }
 
-        public List<ITree<Category>> GetAll()
+        public List<Category> GetAll()
         {
             var all = _context.Categories.Include(x => x.Parent).ToList();
             var virtualRootNode = all.ToTree((parent, child) => child.ParentId == parent.Id);
-            var rootLevelFoldersWithSubTree = virtualRootNode.Children.ToList();
-            // var result = rootLevelFoldersWithSubTree.Select(x => new CategoryResult
-            // {
-            //     CurrentCategory = new CategoryDto
-            //     {
-            //         Name = x.Data.Name,
-            //         Icon = x.Data.Icon,
-            //         ParentCategoryId = x.Data.ParentId
-            //     },
-            //     SubCategories = x.Data.SubCategories.Select(sc => new CategoryDto
-            //     {
-            //         Icon = sc.Icon,
-            //         Name = sc.Name,
-            //         ParentCategoryId = sc.ParentId
-            //     }).ToList(),
-            //     ParentCategories = x.GetParents().Select(pc => new CategoryDto
-            //     {
-            //         Icon = pc.Icon,
-            //         Name = pc.Name,
-            //         ParentCategoryId = pc.ParentId
-            //     }).ToList()
-            // }).ToList();
-            
-            
+            var rootLevelFoldersWithSubTree = virtualRootNode.Children.Select(x => x.Data).ToList();
+
             return rootLevelFoldersWithSubTree;
         }
     }
